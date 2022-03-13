@@ -1,0 +1,20 @@
+button {
+  border: none;
+  font-weight: 600;
+  padding: 8px 20px;
+  border-radius: 28px;
+  cursor: pointer;
+}
+
+.positive {
+  background-color: #017CD9;
+  color: #ffffff;
+}
+.negative {
+  background-color: #F91644;
+  color: #ffffff;
+}
+.neutral {
+  background-color: #D0D1D5;
+  color: #ffffff;
+}

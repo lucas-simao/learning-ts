@@ -1,0 +1,61 @@
+.form-register-user {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px 20px;
+  grid-template-areas:
+    'title'
+    'name'
+    'birthDate'
+    'cpf'
+    'rg'
+    'cellphone'
+    'email'
+    'action';
+  max-width: 600px;
+  margin: 0 auto;
+  border: 1px solid #eaeaea;
+  padding: 20px 16px;
+  border-radius: 8px;
+  margin-top: 20px;
+
+  @media screen and (min-width: 600px) {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+    'title title'
+    'name name'
+    'birthDate .'
+    'cpf rg'
+    'cellphone email'
+    'action action';
+    padding: 20px;
+  }
+}
+.title {
+  grid-area: title;
+}
+.name {
+  grid-area: name;
+}
+.email {
+  grid-area: email;
+}
+.cellphone {
+  grid-area: cellphone;
+}
+.cpf {
+  grid-area: cpf;
+}
+.rg {
+  grid-area: rg;
+}
+.birthDate {
+  grid-area: birthDate;
+}
+.actions {
+  grid-area: action;
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  place-content: flex-end;
+  padding-top: 20px;
+}

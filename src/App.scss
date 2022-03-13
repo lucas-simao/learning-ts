@@ -1,0 +1,9 @@
+.App {
+  max-width: 1366px;
+  padding: 0 16px;
+  margin: 0 auto;
+  
+  @media screen and (min-width: 600px) {
+    padding: 0 30px;
+  }
+}
