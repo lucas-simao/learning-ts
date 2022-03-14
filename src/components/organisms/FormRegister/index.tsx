@@ -1,20 +1,18 @@
-import React, { useEffect, useState, VFC } from 'react';
-import { cellphoneIsValid, cpfIsValid, emailIsValid, nameIsValid } from '../../../utils/validator';
+import React, { useState, VFC } from 'react';
+import { postUser } from '../../../api';
+import { User } from '../../../utils/types';
+import {
+  cellphoneIsValid,
+  cpfIsValid,
+  emailIsValid,
+  nameIsValid,
+} from '../../../utils/validator';
 import Button from '../../atoms/Button';
 import Input from '../../atoms/Input';
 import InputWithMask from '../../atoms/InputWithMask';
 import './index.scss';
 
-type Register = {
-  name: string;
-  email: string;
-  cpf: string;
-  rg: string;
-  birthDate: string;
-  cellphone: string;
-};
-
-const emptyRegister: Register = {
+const emptyRegister: User = {
   name: '',
   email: '',
   cpf: '',
@@ -24,7 +22,7 @@ const emptyRegister: Register = {
 };
 
 const FormRegister: VFC = () => {
-  const [registerObj, setRegisterObj] = useState<Register>(emptyRegister);
+  const [registerObj, setRegisterObj] = useState<User>(emptyRegister);
   const [isValid, setIsValid] = useState({
     name: false,
     email: false,
@@ -47,27 +45,26 @@ const FormRegister: VFC = () => {
     });
   };
 
-  const save = (event:React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    // eslint-disable-next-line no-console
-    console.log({...registerObj});
-  }
+  const save = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    postUser(registerObj)
+  };
 
   return (
     <form className="form-register-user" onSubmit={save}>
       <h1 className="title">Formulário de cadastro</h1>
       <div className="name">
         <Input
-          id='name'
+          id="name"
           required={true}
           value={registerObj.name}
           label="Nome"
           type="text"
           onChange={(value) => {
-            setValue('name', value)
+            setValue('name', value);
 
             if (value.length > 0) {
-              setValueIsValid('name', !nameIsValid(value))
+              setValueIsValid('name', !nameIsValid(value));
             }
           }}
           error={registerObj.name.length > 0 && isValid.name}
@@ -76,7 +73,7 @@ const FormRegister: VFC = () => {
       </div>
       <div className="birthDate">
         <Input
-          id='birthDate'
+          id="birthDate"
           required={true}
           value={registerObj.birthDate}
           label="Data de nascimento"
@@ -88,7 +85,7 @@ const FormRegister: VFC = () => {
       </div>
       <div className="cpf">
         <InputWithMask
-          id='cpf'
+          id="cpf"
           required={true}
           label="CPF"
           mask="999.999.999-99"
@@ -97,17 +94,17 @@ const FormRegister: VFC = () => {
           error={registerObj.cpf.length > 0 && isValid.cpf}
           errorMessage="CPF inválido"
           onChange={(value) => {
-            setValue('cpf', value)
+            setValue('cpf', value);
 
             if (value.length > 0) {
               setValueIsValid('cpf', !cpfIsValid(value));
             }
-        }}
+          }}
         />
       </div>
       <div className="rg">
         <Input
-          id='rg'
+          id="rg"
           value={registerObj.rg}
           label="RG"
           type="text"
@@ -116,7 +113,7 @@ const FormRegister: VFC = () => {
       </div>
       <div className="cellphone">
         <InputWithMask
-          id='cellphone'
+          id="cellphone"
           required={true}
           label="Celular"
           mask="(99) 99999-9999"
@@ -125,17 +122,17 @@ const FormRegister: VFC = () => {
           error={registerObj.cellphone.length > 0 && isValid.cellphone}
           errorMessage="Telefone inválido"
           onChange={(value) => {
-            setValue('cellphone', value)
+            setValue('cellphone', value);
 
             if (value.length > 0) {
-              setValueIsValid('cellphone', !cellphoneIsValid(value))
+              setValueIsValid('cellphone', !cellphoneIsValid(value));
             }
           }}
         />
       </div>
       <div className="email">
         <Input
-          id='email'
+          id="email"
           required={true}
           value={registerObj.email}
           label="Email"
@@ -143,7 +140,7 @@ const FormRegister: VFC = () => {
           error={registerObj.email.length > 0 && isValid.email}
           errorMessage="E-mail inválido"
           onChange={(value) => {
-            setValue('email', value)
+            setValue('email', value);
 
             if (value.length > 0) {
               setValueIsValid('email', !emailIsValid(value));
@@ -156,15 +153,10 @@ const FormRegister: VFC = () => {
           label="Limpar"
           typeProp="neutral"
           onClick={() => {
-            // eslint-disable-next-line no-console
-            console.log('clicou');
+            setRegisterObj(emptyRegister);
           }}
         />
-        <Button
-          label="Salvar"
-          type="submit"
-          typeProp="positive"
-        />
+        <Button label="Salvar" type="submit" typeProp="positive" />
       </div>
     </form>
   );

@@ -17,6 +17,7 @@
     "@types/node": "^16.11.26",
     "@types/react": "^17.0.39",
     "@types/react-dom": "^17.0.13",
+    "axios": "^0.26.1",
     "cpf-cnpj-validator": "^1.0.3",
     "email-validator": "^2.0.4",
     "node-sass": "^7.0.1",

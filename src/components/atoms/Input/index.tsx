@@ -1,4 +1,4 @@
-import React, { VFC, useState } from 'react';
+import React, { VFC, useState, useEffect } from 'react';
 import './index.css';
 
 type Props = {
@@ -15,6 +15,11 @@ type Props = {
 
 const Input: VFC<Props> = (props: Props) => {
   const [value, setValue] = useState(props.value);
+
+  useEffect(() => {
+    if(!props.value) setValue('')
+  }, [props.value])
+  
   return (
     <div className="input-default">
       <label

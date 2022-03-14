@@ -1,4 +1,4 @@
-import React, { VFC, useState } from 'react';
+import React, { VFC, useState, useEffect } from 'react';
 import InputMask from 'react-input-mask';
 import './index.css';
 
@@ -17,6 +17,10 @@ type Props = {
 
 const InputWithMask: VFC<Props> = (props: Props) => {
   const [value, setValue] = useState(props.value);
+
+  useEffect(() => {
+    if(!props.value) setValue('')
+  }, [props.value])
 
   return (
     <div className="input-default">
