@@ -6,3 +6,7 @@ export type User = {
   birthDate: string;
   cellphone: string;
 };
+
+export type UserState = {
+  users: User[];
+}

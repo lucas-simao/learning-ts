@@ -1,0 +1,23 @@
+.tableUser {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 20px 30px;
+
+  h1 {
+    padding-bottom: 10px;
+  }
+
+  table {
+    width: 100%;
+    tr {
+      th {
+        border: 1px solid black;
+      }
+      td {
+        border: 1px solid #eaeaea;
+        padding: 10px;
+        text-align: center;
+      }
+    }
+  }
+}

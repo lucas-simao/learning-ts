@@ -1,5 +1,4 @@
-import React, { useState, VFC } from 'react';
-import { postUser } from '../../../api';
+import React, { useState, VFC, useContext } from 'react';
 import { User } from '../../../utils/types';
 import {
   cellphoneIsValid,
@@ -10,6 +9,9 @@ import {
 import Button from '../../atoms/Button';
 import Input from '../../atoms/Input';
 import InputWithMask from '../../atoms/InputWithMask';
+import { useDispatch } from 'react-redux'
+import { addUser } from '../../../features/user/slice'
+
 import './index.scss';
 
 const emptyRegister: User = {
@@ -30,6 +32,7 @@ const FormRegister: VFC = () => {
     birthDate: false,
     cellphone: false,
   });
+  const dispatch = useDispatch()
 
   const setValue = (key: string, value: string) => {
     setRegisterObj({
@@ -47,7 +50,8 @@ const FormRegister: VFC = () => {
 
   const save = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    postUser(registerObj)
+    dispatch(addUser(registerObj))
+    setRegisterObj(emptyRegister)
   };
 
   return (
