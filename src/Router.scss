@@ -1,0 +1,19 @@
+.router {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  grid-template-rows: max-content;
+  grid-template-areas: 
+    'header header'
+    'drawer router';
+  height: 100%;
+
+  &__header {
+    grid-area: header;
+  }
+  &__drawer {
+    grid-area: drawer;
+  }
+  &__router {
+    grid-area: router;
+  }
+}

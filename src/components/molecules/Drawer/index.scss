@@ -1,0 +1,29 @@
+@import '~/src/scss/index.scss';
+
+.drawer {
+  background-color: $primary;
+  height: 100%;
+  width: 250px;
+
+  &__content {
+    padding: 20px 20px 20px 30px;
+    h1 {
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 500;      
+    }
+    
+    &__grid {
+      display: flex;
+      flex-direction: column;
+      padding-left: 10px;
+      gap: 15px;
+
+      .grid__link {
+        color: $warning;
+        font-weight: 600;
+        text-decoration: none;
+      }
+    }
+  }
+}
