@@ -1,4 +1,4 @@
-import React, { useState, VFC, useContext } from 'react';
+import React, { useState, VFC } from 'react';
 import { User } from '../../../utils/types';
 import {
   cellphoneIsValid,
