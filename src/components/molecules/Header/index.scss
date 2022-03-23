@@ -6,16 +6,40 @@ header {
   border-bottom: 3px solid $secondary;
   
   section {
-    display: flex;
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 20px;
     align-items: center;
     margin: 0 auto;
-    padding: 0 30px;
+    padding: 0 16px;
     height: 64px;
+    
+    @media screen and (min-width: 600px) {
+      padding: 0 30px;
+    }
+
+    button {
+      display: flex;
+      align-items: center;
+      background: none;
+      padding: 0;
+
+      img {
+        width: 32px;
+      }
+      @media screen and (min-width: 599px) {
+        display: none;
+      }
+    }
 
     h1 {
       margin: 0;
       color: #ffffff;
-      font-size: 32px;
+      font-size: 24px;
+      
+      @media screen and (min-width: 600px) {
+        font-size: 32px;
+      }
     }
   }
 }

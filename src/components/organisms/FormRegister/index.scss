@@ -16,7 +16,7 @@
   border: 1px solid #eaeaea;
   padding: 20px 16px;
   border-radius: 8px;
-  margin-top: 20px;
+  margin: 16px;
 
   @media screen and (min-width: 600px) {
     grid-template-columns: 1fr 1fr;
@@ -28,6 +28,7 @@
     'cellphone email'
     'action action';
     padding: 20px;
+    margin: 20px auto;
   }
 }
 .title {

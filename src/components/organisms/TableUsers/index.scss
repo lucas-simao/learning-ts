@@ -2,26 +2,36 @@
   margin: 0 auto;
   padding: 20px 30px;
 
+  @media screen and (max-width: 599px) {
+    padding: 20px 16px;
+    max-width: calc(100vw - 32px);
+  }
+
   h1 {
     padding-bottom: 10px;
   }
 
-  table {
-    width: 100%;
-    tr {
-      th {
-        border-bottom: 1px solid black;
-      }
-      td {
-        border-bottom: 1px solid #eaeaea;
-        padding: 10px;
-        text-align: center;
-      }
-    }
+  &__content {
+    overflow-x: auto;
 
-    tbody {
-      tr:hover {
-        background-color: #f4f4f4;
+    table {
+      min-width: 100%;
+
+      tr {
+        th {
+          border-bottom: 1px solid black;
+        }
+        td {
+          border-bottom: 1px solid #eaeaea;
+          padding: 10px;
+          text-align: center;
+        }
+      }
+
+      tbody {
+        tr:hover {
+          background-color: #f4f4f4;
+        }
       }
     }
   }

@@ -36,9 +36,9 @@ const SnackBar: VFC = () => {
     }
   }, [open]);
 
-  return open ? (
+  return (
     <div
-      className="snackBar"
+      className={open ? 'snackBar is-open':'snackBar'}
       style={{ backgroundColor: snackBarBackGround().color }}
     >
       <div className="snackBar__content">
@@ -62,9 +62,7 @@ const SnackBar: VFC = () => {
         )}
       </div>
     </div>
-  ) : (
-    <></>
-  );
+  )
 };
 
 export default SnackBar;
