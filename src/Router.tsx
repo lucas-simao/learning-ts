@@ -5,6 +5,7 @@ import TableUser from './components/organisms/TableUsers';
 import Drawer from './components/molecules/Drawer';
 import './Router.scss';
 import Header from './components/molecules/Header';
+import SnackBar from './components/molecules/SnackBar';
 
 const Router: VFC = () => {
   return (
@@ -23,6 +24,7 @@ const Router: VFC = () => {
           </Routes>
         </div>
       </div>
+      <SnackBar />
     </BrowserRouter>
   );
 };

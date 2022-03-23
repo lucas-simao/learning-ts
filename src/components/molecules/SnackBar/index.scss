@@ -1,0 +1,29 @@
+@import '~/src/scss/index.scss';
+
+.snackBar {
+  position: absolute;
+  bottom: 40px;
+  left: calc((100% - 250px) / 2);
+  border-radius: 8px;
+  padding: 10px 20px;
+  max-width: 450px;
+  min-width: 300px;
+
+  &__content {
+    display: grid;
+    grid-template-columns: max-content 1fr max-content;
+    gap: 10px;
+    align-items: center;
+
+    &__text {
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 15px;
+    }
+    &__link {
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 16px;
+    }
+  }
+}

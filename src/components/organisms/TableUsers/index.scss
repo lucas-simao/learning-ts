@@ -1,5 +1,4 @@
 .tableUser {
-  max-width: 1024px;
   margin: 0 auto;
   padding: 20px 30px;
 
@@ -11,12 +10,18 @@
     width: 100%;
     tr {
       th {
-        border: 1px solid black;
+        border-bottom: 1px solid black;
       }
       td {
-        border: 1px solid #eaeaea;
+        border-bottom: 1px solid #eaeaea;
         padding: 10px;
         text-align: center;
+      }
+    }
+
+    tbody {
+      tr:hover {
+        background-color: #f4f4f4;
       }
     }
   }

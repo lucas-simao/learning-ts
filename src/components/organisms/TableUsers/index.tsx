@@ -2,12 +2,13 @@ import React, { VFC } from 'react';
 import { User } from '../../../utils/types';
 import Button from '../../atoms/Button';
 import dayjs from 'dayjs';
-import { RootStateOrAny, useSelector, useDispatch } from 'react-redux';
+import {  useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../../../store';
 import { removeUser } from '../../../features/user/slice';
 import './index.scss';
 
 const TableUser: VFC = () => {
-  const users = useSelector((state: RootStateOrAny) => state.users);
+  const users = useSelector((state: RootState) => state.users.users);
 
   const dispatch = useDispatch();
 

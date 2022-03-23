@@ -1,4 +1,4 @@
-import React, { useState, VFC } from 'react';
+import React, { useEffect, useState, VFC } from 'react';
 import { User } from '../../../utils/types';
 import {
   cellphoneIsValid,
@@ -9,8 +9,9 @@ import {
 import Button from '../../atoms/Button';
 import Input from '../../atoms/Input';
 import InputWithMask from '../../atoms/InputWithMask';
-import { useDispatch } from 'react-redux';
 import { addUser } from '../../../features/user/slice';
+import { openAlert } from '../../../features/snackBar/slice';
+import { useAppDispatch } from '../../../store/hooks';
 
 import './index.scss';
 
@@ -32,7 +33,7 @@ const FormRegister: VFC = () => {
     birthDate: false,
     cellphone: false,
   });
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const setValue = (key: string, value: string) => {
     setRegisterObj({
@@ -51,6 +52,14 @@ const FormRegister: VFC = () => {
   const save = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     dispatch(addUser(registerObj));
+    dispatch(openAlert({
+      open: true,
+      goToRoute: '/listar-usuario',
+      goToRouteLabel: 'Lista de usuários',
+      text: 'Usuário cadastrado com sucesso',
+      style: 'positive',
+      autoHideDuration: 3000,
+    }))
     setRegisterObj(emptyRegister);
   };
 
