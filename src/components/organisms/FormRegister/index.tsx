@@ -1,4 +1,4 @@
-import React, { useEffect, useState, VFC } from 'react';
+import React, { useState, VFC } from 'react';
 import { User } from '../../../utils/types';
 import {
   cellphoneIsValid,
@@ -52,14 +52,16 @@ const FormRegister: VFC = () => {
   const save = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     dispatch(addUser(registerObj));
-    dispatch(openAlert({
-      open: true,
-      goToRoute: '/listar-usuario',
-      goToRouteLabel: 'Lista de usuários',
-      text: 'Usuário cadastrado com sucesso',
-      style: 'positive',
-      autoHideDuration: 3000,
-    }))
+    dispatch(
+      openAlert({
+        open: true,
+        goToRoute: '/listar-usuario',
+        goToRouteLabel: 'Lista de usuários',
+        text: 'Usuário cadastrado com sucesso',
+        style: 'positive',
+        autoHideDuration: 3000,
+      }),
+    );
     setRegisterObj(emptyRegister);
   };
 

@@ -1,0 +1,45 @@
+name: Continuous integration
+
+on: pull_request
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  type_check:
+    name: Type check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          cache: 'yarn'
+
+      - name: Install packages
+        run: yarn install
+
+      - name: Type check
+        run: tsc --noEmit
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          cache: 'yarn'
+
+      - name: Install packages
+        run: yarn install
+
+      - name: Lint
+        run: yarn lint
