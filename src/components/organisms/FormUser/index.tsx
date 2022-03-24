@@ -15,6 +15,7 @@ import { addUser, updateUser } from '../../../features/user/slice';
 import { openAlert } from '../../../features/snackBar/slice';
 import { useAppDispatch } from '../../../store/hooks';
 import { useUserByIndex } from '../../../features/user/selectors';
+
 import './index.scss';
 
 const emptyUser: User = {
