@@ -9,6 +9,7 @@ import { useUsers } from '../../../features/user/selectors';
 
 import './index.scss';
 import Empty from '../../atoms/Empty';
+import { openAlert } from '../../../features/snackBar/slice';
 
 const TableUser: VFC = () => {
   const users = useUsers();
@@ -18,6 +19,18 @@ const TableUser: VFC = () => {
   const formatDate = (date: string) => {
     if (!date) return;
     return dayjs(date).format('DD/MM/YYYY');
+  };
+
+  const handleDeleteUser = (userId: string) => {
+    dispatch(removeUser(userId));
+    dispatch(
+      openAlert({
+        open: true,
+        text: 'Usuário removido com sucesso',
+        style: 'info',
+        autoHideDuration: 3000,
+      }),
+    );
   };
 
   return (
@@ -49,7 +62,7 @@ const TableUser: VFC = () => {
                     <td>{user.email}</td>
                     <td className="actions">
                       <Button
-                        onClick={() => dispatch(removeUser(user.id))}
+                        onClick={() => handleDeleteUser(user.id)}
                         label="Excluir"
                         typeProp="negative"
                       />

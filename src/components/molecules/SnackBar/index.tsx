@@ -23,7 +23,7 @@ const SnackBar: VFC = () => {
       case 'warning':
         return { color: '#F68A1B', icon: WarningIcon };
       case 'info':
-        return { color: '#F68A1B', icon: ErrorIcon };
+        return { color: '#1D95D6', icon: ErrorIcon };
       default:
         return { color: '#F68A1B', icon: ErrorIcon };
     }
