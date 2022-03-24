@@ -1,4 +1,4 @@
-import React, { useState, VFC } from 'react';
+import React, { useEffect, useState, VFC } from 'react';
 import { User } from '../../../utils/types';
 import {
   cellphoneIsValid,
@@ -6,16 +6,19 @@ import {
   emailIsValid,
   nameIsValid,
 } from '../../../utils/validator';
+import { useNavigate, useParams } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 import Button from '../../atoms/Button';
 import Input from '../../atoms/Input';
 import InputWithMask from '../../atoms/InputWithMask';
-import { addUser } from '../../../features/user/slice';
+import { addUser, updateUser } from '../../../features/user/slice';
 import { openAlert } from '../../../features/snackBar/slice';
 import { useAppDispatch } from '../../../store/hooks';
-
+import { useUserByIndex } from '../../../features/user/selectors';
 import './index.scss';
 
-const emptyRegister: User = {
+const emptyUser: User = {
+  id: '',
   name: '',
   email: '',
   cpf: '',
@@ -24,8 +27,8 @@ const emptyRegister: User = {
   cellphone: '',
 };
 
-const FormRegister: VFC = () => {
-  const [registerObj, setRegisterObj] = useState<User>(emptyRegister);
+const FormUser: VFC = () => {
+  const [user, setUser] = useState<User>(emptyUser);
   const [isValid, setIsValid] = useState({
     name: false,
     email: false,
@@ -34,10 +37,14 @@ const FormRegister: VFC = () => {
     cellphone: false,
   });
   const dispatch = useAppDispatch();
+  const params = useParams();
+  const navigate = useNavigate();
+  const userToEdit = useUserByIndex(String(params.id));
+  const pageTitle = String(params.id) ? 'Editar usuário' : 'Cadastrar usuário';
 
   const setValue = (key: string, value: string) => {
-    setRegisterObj({
-      ...registerObj,
+    setUser({
+      ...user,
       [key]: value,
     });
   };
@@ -49,31 +56,53 @@ const FormRegister: VFC = () => {
     });
   };
 
+  useEffect(() => {
+    if (params.id) {
+      setUser(userToEdit);
+    }
+  }, [params.index]);
+
   const save = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    dispatch(addUser(registerObj));
-    dispatch(
-      openAlert({
-        open: true,
-        goToRoute: '/listar-usuario',
-        goToRouteLabel: 'Lista de usuários',
-        text: 'Usuário cadastrado com sucesso',
-        style: 'positive',
-        autoHideDuration: 3000,
-      }),
-    );
-    setRegisterObj(emptyRegister);
+
+    if (params.id) {
+      dispatch(updateUser(user));
+      dispatch(
+        openAlert({
+          open: true,
+          goToRoute: '/listar-usuario',
+          goToRouteLabel: 'Lista de usuários',
+          text: 'Usuário alterado com sucesso',
+          style: 'positive',
+          autoHideDuration: 3000,
+        }),
+      );
+    } else {
+      user.id = uuidv4();
+      dispatch(addUser(user));
+      dispatch(
+        openAlert({
+          open: true,
+          goToRoute: '/listar-usuario',
+          goToRouteLabel: 'Lista de usuários',
+          text: 'Usuário cadastrado com sucesso',
+          style: 'positive',
+          autoHideDuration: 3000,
+        }),
+      );
+    }
+    setUser(emptyUser);
   };
 
   return (
     <>
       <form className="form-register-user" onSubmit={save}>
-        <h1 className="title">Formulário de cadastro</h1>
+        <h1 className="title">{pageTitle}</h1>
         <div className="name">
           <Input
             id="name"
             required={true}
-            value={registerObj.name}
+            value={user.name}
             label="Nome"
             type="text"
             onChange={(value) => {
@@ -83,7 +112,7 @@ const FormRegister: VFC = () => {
                 setValueIsValid('name', !nameIsValid(value));
               }
             }}
-            error={registerObj.name.length > 0 && isValid.name}
+            error={user.name.length > 0 && isValid.name}
             errorMessage="Informe nome e sobrenome"
           />
         </div>
@@ -91,11 +120,11 @@ const FormRegister: VFC = () => {
           <Input
             id="birthDate"
             required={true}
-            value={registerObj.birthDate}
+            value={user.birthDate}
             label="Data de nascimento"
             type="date"
             onChange={(value) => setValue('birthDate', value)}
-            error={registerObj.birthDate.length > 0 && isValid.birthDate}
+            error={user.birthDate.length > 0 && isValid.birthDate}
             errorMessage="Data nascimento inválida"
           />
         </div>
@@ -105,9 +134,9 @@ const FormRegister: VFC = () => {
             required={true}
             label="CPF"
             mask="999.999.999-99"
-            value={registerObj.cpf}
+            value={user.cpf}
             type="tel"
-            error={registerObj.cpf.length > 0 && isValid.cpf}
+            error={user.cpf.length > 0 && isValid.cpf}
             errorMessage="CPF inválido"
             onChange={(value) => {
               setValue('cpf', value);
@@ -121,7 +150,7 @@ const FormRegister: VFC = () => {
         <div className="rg">
           <Input
             id="rg"
-            value={registerObj.rg}
+            value={user.rg}
             label="RG"
             type="text"
             onChange={(value) => setValue('rg', value)}
@@ -133,9 +162,9 @@ const FormRegister: VFC = () => {
             required={true}
             label="Celular"
             mask="(99) 99999-9999"
-            value={registerObj.cellphone}
+            value={user.cellphone}
             type="tel"
-            error={registerObj.cellphone.length > 0 && isValid.cellphone}
+            error={user.cellphone.length > 0 && isValid.cellphone}
             errorMessage="Telefone inválido"
             onChange={(value) => {
               setValue('cellphone', value);
@@ -150,10 +179,10 @@ const FormRegister: VFC = () => {
           <Input
             id="email"
             required={true}
-            value={registerObj.email}
+            value={user.email}
             label="Email"
             type="email"
-            error={registerObj.email.length > 0 && isValid.email}
+            error={user.email.length > 0 && isValid.email}
             errorMessage="E-mail inválido"
             onChange={(value) => {
               setValue('email', value);
@@ -166,17 +195,25 @@ const FormRegister: VFC = () => {
         </div>
         <div className="actions">
           <Button
-            label="Limpar"
+            label={params.id ? 'Voltar' : 'Limpar'}
             typeProp="neutral"
             onClick={() => {
-              setRegisterObj(emptyRegister);
+              if (params.id) {
+                navigate('/listar-usuario');
+              } else {
+                setUser(emptyUser);
+              }
             }}
           />
-          <Button label="Salvar" type="submit" typeProp="positive" />
+          <Button
+            label={params.id ? 'Alterar' : 'Salvar'}
+            type="submit"
+            typeProp="positive"
+          />
         </div>
       </form>
     </>
   );
 };
 
-export default FormRegister;
+export default FormUser;

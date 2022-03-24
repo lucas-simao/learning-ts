@@ -1,12 +1,12 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import userReducer from '../features/user/slice';
-import snackBarReducer from '../features/snackBar/slice';
+import users from '../features/user/slice';
+import snackBar from '../features/snackBar/slice';
 
 const reducers = combineReducers({
-  users: userReducer,
-  snackBar: snackBarReducer,
-})
+  users,
+  snackBar,
+});
 
 export type RootState = ReturnType<typeof reducers>;
 
-export default reducers
+export default reducers;

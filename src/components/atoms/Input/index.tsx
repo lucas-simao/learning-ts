@@ -17,16 +17,16 @@ const Input: VFC<Props> = (props: Props) => {
   const [value, setValue] = useState(props.value);
 
   useEffect(() => {
-    if(!props.value) setValue('')
-  }, [props.value])
-  
+    setValue(props.value);
+  }, [props.value]);
+
   return (
     <div className="input-default">
       <label
         htmlFor="input-default"
         style={{ color: props.error ? 'red' : '' }}
       >
-        {props.required ? props.label +'*' : props.label}
+        {props.required ? props.label + '*' : props.label}
       </label>
       <input
         required={props.required}

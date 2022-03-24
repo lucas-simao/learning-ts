@@ -1,4 +1,5 @@
 export type User = {
+  id: string;
   name: string;
   email: string;
   cpf: string;
@@ -8,5 +9,5 @@ export type User = {
 };
 
 export type UserState = {
-  users: User[];
-}
+  users: Array<User>;
+};

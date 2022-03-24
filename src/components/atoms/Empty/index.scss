@@ -1,0 +1,21 @@
+.emptyCard {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  align-items: center;
+  text-align: center;
+
+  h1 {
+    font-size: 28px;
+    margin: 0;
+  }
+
+  &__icon {
+    font-size: 200px;
+    margin: 0;
+  }
+
+  &__body {
+    margin: 0;
+  }
+}

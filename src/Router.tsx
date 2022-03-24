@@ -1,10 +1,13 @@
-import React, { useState, VFC } from 'react';
+import React, { useEffect, useState, VFC } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import FormRegister from './components/organisms/FormRegister';
+import { useDispatch } from 'react-redux';
+import { setUsers } from './features/user/slice';
+import { getUsersStorage } from './api/localStorage/user';
 import TableUser from './components/organisms/TableUsers';
 import Drawer from './components/molecules/Drawer';
 import Header from './components/molecules/Header';
 import SnackBar from './components/molecules/SnackBar';
+import FormUser from './components/organisms/FormUser';
 
 import './Router.scss';
 
@@ -12,7 +15,12 @@ export const routeList = [
   {
     name: 'Cadastrar usuário',
     path: '/cadastrar-usuario',
-    element: <FormRegister />,
+    element: <FormUser />,
+  },
+  {
+    name: 'Editar usuário',
+    path: '/editar-usuario/:id',
+    element: <FormUser />,
   },
   {
     name: 'Listar usuários',
@@ -23,6 +31,11 @@ export const routeList = [
 
 const Router: VFC = () => {
   const [drawer, setDrawer] = useState<boolean>(false);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(setUsers(getUsersStorage()));
+  });
 
   return (
     <BrowserRouter>

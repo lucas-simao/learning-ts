@@ -1,15 +1,18 @@
 import React, { VFC } from 'react';
+import dayjs from 'dayjs';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { User } from '../../../utils/types';
 import Button from '../../atoms/Button';
-import dayjs from 'dayjs';
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../../../store';
 import { removeUser } from '../../../features/user/slice';
+import { useUsers } from '../../../features/user/selectors';
+
 import './index.scss';
+import Empty from '../../atoms/Empty';
 
 const TableUser: VFC = () => {
-  const users = useSelector((state: RootState) => state.users.users);
-
+  const users = useUsers();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const formatDate = (date: string) => {
@@ -20,42 +23,54 @@ const TableUser: VFC = () => {
   return (
     <div className="tableUser">
       <h1>Lista de usuários</h1>
-      <div className='tableUser__content'>
-        <table>
-          <thead>
-            <tr>
-              <th>Nome</th>
-              <th>Data nascimento</th>
-              <th>Telefone</th>
-              <th>CPF</th>
-              <th>RG</th>
-              <th>Email</th>
-              <th>Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users?.map((user: User, index: number) => {
-              return (
-                <tr key={index}>
-                  <td>{user.name}</td>
-                  <td>{formatDate(user.birthDate)}</td>
-                  <td>{user.cellphone}</td>
-                  <td>{user.cpf}</td>
-                  <td>{user.rg}</td>
-                  <td>{user.email}</td>
-                  <td>
-                    <Button
-                      onClick={() => dispatch(removeUser(index))}
-                      label="Excluir"
-                      typeProp="negative"
-                    />
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
+      {users.length ? (
+        <div className="tableUser__content">
+          <table>
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Data nascimento</th>
+                <th>Telefone</th>
+                <th>CPF</th>
+                <th>RG</th>
+                <th>Email</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              {users?.map((user: User) => {
+                return (
+                  <tr key={user.id}>
+                    <td>{user.name}</td>
+                    <td>{formatDate(user.birthDate)}</td>
+                    <td>{user.cellphone}</td>
+                    <td>{user.cpf}</td>
+                    <td>{user.rg}</td>
+                    <td>{user.email}</td>
+                    <td className="actions">
+                      <Button
+                        onClick={() => dispatch(removeUser(user.id))}
+                        label="Excluir"
+                        typeProp="negative"
+                      />
+                      <Button
+                        onClick={() => navigate(`/editar-usuario/${user.id}`)}
+                        label="Editar"
+                        typeProp="positive"
+                      />
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <Empty
+          title="Sem usuários"
+          body="Ainda não foi cadastrado nenhum usuário"
+        />
+      )}
     </div>
   );
 };

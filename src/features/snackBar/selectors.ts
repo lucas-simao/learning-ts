@@ -1,3 +1,3 @@
-import {useAppSelector} from '../../store/hooks';
+import { useAppSelector } from '../../store/hooks';
 
-export const useSnackBarData = () => useAppSelector(({snackBar}) => snackBar);
+export const useSnackBarData = () => useAppSelector((state) => state.snackBar);

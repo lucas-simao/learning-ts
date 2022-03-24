@@ -19,8 +19,8 @@ const InputWithMask: VFC<Props> = (props: Props) => {
   const [value, setValue] = useState(props.value);
 
   useEffect(() => {
-    if(!props.value) setValue('')
-  }, [props.value])
+    setValue(props.value);
+  }, [props.value]);
 
   return (
     <div className="input-default">

@@ -13,6 +13,7 @@ const SnackBar: VFC = () => {
   const { style, open, text, goToRoute, goToRouteLabel, autoHideDuration } =
     useSnackBarData();
   const dispatch = useAppDispatch();
+
   const snackBarBackGround = () => {
     switch (style) {
       case 'positive':
@@ -38,7 +39,7 @@ const SnackBar: VFC = () => {
 
   return (
     <div
-      className={open ? 'snackBar is-open':'snackBar'}
+      className={open ? 'snackBar is-open' : 'snackBar'}
       style={{ backgroundColor: snackBarBackGround().color }}
     >
       <div className="snackBar__content">
@@ -62,7 +63,7 @@ const SnackBar: VFC = () => {
         )}
       </div>
     </div>
-  )
+  );
 };
 
 export default SnackBar;
