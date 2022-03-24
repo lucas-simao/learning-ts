@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
   addUserStorage,
-  getUsersStorage,
   removeUserStorage,
   updateUserStorage,
 } from '../../api/localStorage/user';

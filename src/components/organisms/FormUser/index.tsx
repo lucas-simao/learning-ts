@@ -58,10 +58,10 @@ const FormUser: VFC = () => {
   };
 
   useEffect(() => {
-    if (params.id) {
+    if (params.id && userToEdit) {
       setUser(userToEdit);
     }
-  }, [params.index]);
+  }, [params.index, JSON.stringify(userToEdit)]);
 
   const save = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
