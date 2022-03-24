@@ -18,6 +18,10 @@ You will also see any lint errors in the console.
 
 * Create user
 * List user
+* Edit user
+* Delete user
+
+All data is saved on local storage
 
 ## Tecnologies this project use
 * react
